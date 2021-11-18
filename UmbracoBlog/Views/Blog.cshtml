@@ -1,0 +1,34 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Blog>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+
+
+@{
+	var selection = Umbraco.Content(Guid.Parse("1bdbde1b-b197-4ce1-bbfb-88c793e56f7e"))
+    .Children()
+    .Where(x => x.IsVisible())
+    .OrderByDescending(x => x.CreateDate);
+}
+<ul>
+	@foreach (var item in selection)
+	{
+		<ul>
+		<div class="container card mb-4">
+            <div class="card-body">
+            <div class="small text-muted">@item.CreateDate</div>
+            <h2 class="card-title h4">@item.Name()</h2>
+            <p class="card-text"></p>
+            <a class="btn btn-primary" href="@item.Url()">Read more →</a>
+            </div>
+        </div>
+		</ul>
+	}
+</ul>
+
+
+
+
